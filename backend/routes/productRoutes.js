@@ -21,7 +21,8 @@ router.get(
       return res.status(200).json(product);
     }
 
-    res.status(404).status({ message: "Product not found" });
+    res.status(404);
+    throw new Error("Resource not found");
   })
 );
 

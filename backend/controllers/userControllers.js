@@ -1,6 +1,6 @@
 import User from "../model/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
-import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 
 // @desc    Auth user & get token
 // @route   POST /api/v1/users/login
@@ -11,17 +11,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && user.matchPassword(password)) {
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    // Set JWT as an HTTP-Only cookie
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== "development", // Use secure cookies in production
-      sameSite: "strict", // Prevent CSRF attacks
-      maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
-    });
+    generateToken(res, user._id);
 
     res.json({
       _id: user._id,
@@ -39,19 +29,45 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/v1/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  res.send("register User ");
+  const { name, email, password } = req.body;
+
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    generateToken(res, user._id);
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
 });
 
 // @desc    Logout a user
 // @route   POST /api/v1/users/logout
 // @access  Public
-const logoutUser = asyncHandler(async (req, res) => {
+const logoutUser = (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
-    expiresIn: new Date(0),
+    expires: new Date(0),
   });
   res.status(200).json({ message: "Logged out successfully" });
-});
+};
 
 // @desc    Get user profile
 // @route   GET /api/v1/users/profile

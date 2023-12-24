@@ -15,8 +15,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(notFound);
-app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("Api is running...");
@@ -24,6 +22,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

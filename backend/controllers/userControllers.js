@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 // @desc    Auth user & get token
 // @route   POST /api/v1/users/login
-// @access  public
+// @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -37,9 +37,20 @@ const authUser = asyncHandler(async (req, res) => {
 
 // @desc    Register a new user
 // @route   POST /api/v1/users
-// @access  public
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   res.send("register User ");
+});
+
+// @desc    Logout a user
+// @route   POST /api/v1/users/logout
+// @access  Public
+const logoutUser = asyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expiresIn: new Date(0),
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 // @desc    Get user profile
@@ -87,6 +98,7 @@ const updateUser = asyncHandler(async (req, res) => {
 export {
   authUser,
   registerUser,
+  logoutUser,
   getUserProfile,
   updateUserProfile,
   getUsers,

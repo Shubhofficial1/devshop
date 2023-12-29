@@ -16,8 +16,10 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation();
+  const [
+    updateProfile,
+    // { isLoading: loadingUpdateProfile }
+  ] = useProfileMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
@@ -29,7 +31,7 @@ const ProfileScreen = () => {
       setName(userInfo.name);
       setEmail(userInfo.email);
     }
-  }, [userInfo.name, userInfo.email]);
+  }, [userInfo, userInfo.name, userInfo.email]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

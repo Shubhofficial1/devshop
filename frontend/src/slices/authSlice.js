@@ -16,6 +16,8 @@ const authSlice = createSlice({
       const expirationTime = new Date().getTime() + 60 * 60 * 1000 * 10; // 10 hour
       // const expirationTime = new Date().getTime() + 60 * 1000; // 1 minute (for testing)
       localStorage.setItem("expirationTime", expirationTime);
+
+      // TODO : MAJOR ISSUE : something realted to localstorage => u know. Admin acc
     },
     logout: (state, action) => {
       state.userInfo = null;

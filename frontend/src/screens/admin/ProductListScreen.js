@@ -53,7 +53,7 @@ const ProductListScreen = () => {
         </Message>
       ) : (
         <>
-          <Table responsive table bordered hover className="table-sm">
+          <Table responsive bordered hover className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>

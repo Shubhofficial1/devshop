@@ -16,10 +16,8 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [
-    updateProfile,
-    // { isLoading: loadingUpdateProfile }
-  ] = useProfileMutation();
+  const [updateProfile, { isLoading: loadingUpdateProfile }] =
+    useProfileMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
@@ -101,6 +99,8 @@ const ProfileScreen = () => {
           <Button type="submit" variant="primary" className="my-2">
             Update
           </Button>
+
+          {loadingUpdateProfile && <Loader />}
         </Form>
       </Col>
       <Col md="9">

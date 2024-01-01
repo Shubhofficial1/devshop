@@ -33,9 +33,6 @@ const ProductEditScreen = () => {
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
 
-  const [uploadProductImage, { isLoading: loadingUpload }] =
-    useUploadProductImageMutation();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -56,6 +53,9 @@ const ProductEditScreen = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
+
+  const [uploadProductImage, { isLoading: loadingUpload }] =
+    useUploadProductImageMutation();
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();

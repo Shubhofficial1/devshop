@@ -11,8 +11,8 @@ const SearchBox = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword) {
-      setKeyword("");
       navigate(`/search/${keyword.trim()}`);
+      setKeyword("");
     } else {
       navigate("/");
     }

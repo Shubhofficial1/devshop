@@ -5,7 +5,7 @@ import asyncHandler from "../middlewares/asyncHandler.js";
 // @route   GET /api/v1/products
 // @access  public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 8;
+  const pageSize = process.env.PAGINATION_LIMIT;
 
   const page = Number(req.query.pageNumber) || 1;
 
@@ -34,10 +34,10 @@ const getProductById = asyncHandler(async (req, res) => {
 
   if (product) {
     return res.status(200).json(product);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
   }
-
-  res.status(404);
-  throw new Error("Resource not found");
 });
 
 // @desc    Create Product
@@ -57,7 +57,7 @@ const createProduct = asyncHandler(async (req, res) => {
   });
 
   const createdProduct = await product.save();
-  res.status(201).json(createProduct);
+  res.status(201).json(createdProduct);
 });
 
 // @desc    Update a Product

@@ -114,7 +114,7 @@ const ProfileScreen = () => {
           </Message>
         ) : (
           <>
-            <Table striped table="true" hover responsive className="table-sm">
+            <Table striped hover responsive className="table-sm">
               <thead>
                 <tr>
                   <th>ID</th>

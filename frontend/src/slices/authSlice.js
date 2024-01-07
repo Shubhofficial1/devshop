@@ -21,11 +21,7 @@ const authSlice = createSlice({
     },
     logout: (state, action) => {
       state.userInfo = null;
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("cart");
-      localStorage.removeItem("expirationTime");
-
-      // TODO : maybe better to use localstorage.clear() here, will see in future if needed
+      localStorage.clear();
     },
   },
 });

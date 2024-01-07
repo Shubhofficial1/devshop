@@ -45,7 +45,7 @@ const ProductEditScreen = () => {
         category,
         description,
         countInStock,
-      });
+      }).unwrap();
       toast.success("product updated");
       refetch();
       navigate("/admin/productlist");

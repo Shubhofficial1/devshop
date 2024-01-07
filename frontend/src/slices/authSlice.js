@@ -13,11 +13,11 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
-      const expirationTime = new Date().getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days
+      // const expirationTime = new Date().getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days
       // const expirationTime = new Date().getTime() + 60 * 1000; // 1 minute (for testing)
-      localStorage.setItem("expirationTime", expirationTime);
+      // localStorage.setItem("expirationTime", expirationTime);
 
-      // TODO : MAJOR ISSUE : something realted to localstorage => u know. Admin acc
+      // TODO : MAJOR ISSUE : something realted to localstorage => u know. Admin acc FIxed this on last commit & this one by commenting.
     },
     logout: (state, action) => {
       state.userInfo = null;

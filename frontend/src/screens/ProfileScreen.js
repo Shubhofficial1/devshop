@@ -38,7 +38,6 @@ const ProfileScreen = () => {
     } else {
       try {
         const res = await updateProfile({
-          _id: userInfo._id,
           name,
           email,
           password,

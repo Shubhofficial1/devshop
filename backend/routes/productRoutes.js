@@ -10,7 +10,7 @@ import {
 } from "../controllers/productControllers.js";
 const router = express.Router();
 import { protect, admin } from "../middlewares/authMiddleware.js";
-import checkObjectId from "../middleware/checkObjectId.js";
+import checkObjectId from "../middlewares/checkObjectId.js";
 
 router.route("/").get(getProducts).post(protect, admin, createProduct);
 router.get("/top", getTopProducts);
